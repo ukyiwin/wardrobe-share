@@ -1,0 +1,27 @@
+
+@import './theme.sass'
+
+$margin: 20px
+
+header h1
+  margin: $margin * 1.5
+  font-family: $primary-font
+  font-weight: normal
+  letter-spacing: 3px
+
+.navigation
+  border-top: 0.5px solid $lightGrey
+  border-bottom: 0.5px solid $lightGrey
+  ul 
+    margin: 0
+    font-family: $secondary-font
+    text-align: center
+    letter-spacing: 1px
+    li
+      display: inline-block
+      list-style: none
+      margin: $margin $margin * 2
+      cursor: pointer
+      &.active
+        color: $orange
+

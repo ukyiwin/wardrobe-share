@@ -1,0 +1,57 @@
+@import './theme.sass'
+
+$margin: 20px
+
+.item-search-container
+  padding: $margin
+  width: 60%
+  border-right: 0.5px solid $lightGrey
+  color: $lightGrey
+
+.searchbox
+  display: flex
+  align-content: center
+  color: $lightGrey
+  font-size: 1.3rem
+  font-family: $secondary-font
+  input
+    border: none
+    margin: 0 $margin
+    font-size: 1.1rem
+    color: $lightGrey
+    outline: none
+    &::placeholder
+      font-size: 1.1rem
+
+.searchQuery
+  color: black
+  font-weight: 700
+  font-family: $primary-font
+
+.products
+  flex: 1 1 0
+  display: flex
+  padding-top: $margin
+  width: 100%
+  flex-wrap: wrap
+
+$grid-margin: 5px
+
+.productCard
+  background-color: grey  
+  margin: $grid-margin
+  width: calc(33% - #{$grid-margin * 2})
+  padding-bottom: 40%
+  position: relative
+  i
+    color: white
+    position: absolute
+    bottom: 1rem
+    right: 1rem
+    opacity: 0.8
+    font-size: 2rem
+    cursor: pointer
+
+.item-search-results
+  > div
+    padding-top: 0.5em
