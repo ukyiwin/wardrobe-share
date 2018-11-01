@@ -18,7 +18,7 @@ class ItemSearch extends Component {
         </div>
         <div className="item-search-results">
           <div>
-            You're search results for
+            Your search results for
             <span className="searchQuery"> "long sleeved tops"</span>
           </div>
           <div>7 styles found</div>
