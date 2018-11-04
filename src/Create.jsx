@@ -1,11 +1,18 @@
 import React from 'react';
 import Search from './ItemSearch';
 import WardrobePreview from './WardrobePreview';
-import './styles/Create.sass';
+import styled from 'styled-components';
+
+const CreateContainer = styled.div`
+  flex: 1
+  display: flex
+  min-height: 100%
+`;
+
 const Create = () => (
-  <div className="create-container">
+  <CreateContainer>
     <Search />
     <WardrobePreview />
-  </div>
+  </CreateContainer>
 );
 export default Create;
