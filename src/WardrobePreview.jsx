@@ -1,10 +1,10 @@
 import React from 'react';
 import './styles/WardrobePreview.sass';
-
+import productData from './productData';
 const WardrobePreview = () => {
   const selectedData = [1, 2, 3];
-  const listofSelected = selectedData.map(item => (
-    <div className="item">
+  const listofSelected = selectedData.map((item, index) => (
+    <div className="item" key={index}>
       <img className="item__image" />
       <div className="item__body">
         <div className="item__body__description">A lovely summer top</div>
