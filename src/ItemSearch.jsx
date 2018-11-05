@@ -3,11 +3,12 @@ import './styles/ItemSearch.sass';
 import productData from './productData';
 import styled from 'styled-components';
 
-const gridMargin = '5px';
+const margin = '20px';
+const gridMargin = '10px';
 
 const ProductCard = styled.div`
   position: relative;
-  width: 33%;
+  width: 33.33%;
   padding: ${gridMargin};
 `;
 
@@ -32,15 +33,23 @@ const AddIcons = styled.i`
 `;
 
 const ProductDesription = styled.p`
-  margin: 0.5em 0
+  margin: 0.5em 0;
   color: grey;
   height: 2.3rem;
 `;
 const ProductPrice = styled.p`
-margin: 0.5em 0
-color: grey;
+  margin: 0.5em 0 0.5em;
+  color: grey;
 `;
 
+const Products = styled.div`
+  flex: 1 1 0;
+  display: flex;
+  padding-top: ${margin};
+  margin-left: -${gridMargin}
+  width: 100%;
+  flex-wrap: wrap;
+`;
 class ItemSearch extends Component {
   items = productData.tops.slice(0, 20);
 
@@ -71,7 +80,7 @@ class ItemSearch extends Component {
           </div>
           <div>20 styles found</div>
         </div>
-        <div className="products">{items}</div>
+        <Products>{items}</Products>
       </div>
     );
   }
