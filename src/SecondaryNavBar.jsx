@@ -8,6 +8,7 @@ const margin = '20px';
 const SecondaryNavContainer = styled.div`
   display: flex;
   margin-bottom: 1rem;
+  align-items: center;
 `;
 const NavItem = styled.li`
   display: inline-block;
@@ -20,10 +21,10 @@ const NavItem = styled.li`
 
 const Searchbox = styled.div`
   display: flex;
-  align-content: center;
   color: ${colors.lightGrey};
   font-size: 1.3rem;
   font-family: ${fonts.secondaryFont};
+  margin-left: auto;
 `;
 
 const SearchInput = styled.input`
@@ -32,9 +33,6 @@ const SearchInput = styled.input`
   font-size: 1.1rem;
   color: ${colors.lightGrey};
   outline: none;
-  > span {
-    margin: auto 0;
-  }
   ::placeholder {
     font-size: 1.1rem;
   }
@@ -63,14 +61,16 @@ class SecondaryNav extends Component {
       <SecondaryNavContainer>
         <ul>{navItems}</ul>
         <Searchbox>
-          <span>
-            <i className="fas fa-search" onClick={this.props.handleSearch} />
-          </span>
-          <SearchInput
-            placeholder="Search"
-            onChange={this.props.handleSearchInputOnChange}
-            value={this.props.inputValue}
-          />
+          <form>
+            <span>
+              <i className="fas fa-search" onClick={this.props.handleSearch} />
+            </span>
+            <SearchInput
+              placeholder="Search"
+              onChange={this.props.handleSearchInputOnChange}
+              value={this.props.inputValue}
+            />
+          </form>
         </Searchbox>
       </SecondaryNavContainer>
     );

@@ -7,11 +7,13 @@ import { fonts, colors } from './styles/theme';
 import SecondaryNav from './SecondaryNavBar';
 const margin = '20px';
 const gridMargin = '10px';
+
 const ItemBrowseContainer = styled.div`
   padding: 0 ${margin} ${margin};
   width: 70%;
   border-right: 0.5px solid ${colors.lightGrey};
   color: ${colors.lightGrey};
+  overflow-y: auto;
 `;
 
 const ProductCard = styled.div`
@@ -51,7 +53,6 @@ const ProductPrice = styled.p`
 `;
 
 const Products = styled.div`
-  flex: 1 1 0;
   display: flex;
   padding-top: ${margin};
   margin-left: -${gridMargin}
@@ -67,7 +68,8 @@ const SearchQuery = styled.span`
 class Browse extends Component {
   state = {
     items: productData.tops.slice(0, 20),
-    searchQuery: 'long sleeved tops',
+    searchInput: 'long sleeved tops',
+    searchQuery: '',
     searchResultReturned: true
   };
   componentDidMount() {
@@ -76,25 +78,27 @@ class Browse extends Component {
   handleSelectNavItem = category => {
     this.setState({
       items: [...productData[category]],
+      searchInput: '',
       searchQuery: '',
       searchResultReturned: false
     });
   };
   handleSearchInputOnChange = ({ target: { value } }) => {
-    this.setState({ searchQuery: value });
+    this.setState({ searchInput: value });
   };
 
   handleSearch = () => {
     //return if empty
-    if (!this.state.searchQuery) return;
-    const words = this.state.searchQuery.split(' ').join('|');
+    if (!this.state.searchInput) return;
+    const words = this.state.searchInput.split(' ').join('|');
     const pattern = new RegExp(words, 'i');
     const items = productDataAll.filter(({ description, id }) => {
       return pattern.test(description);
     });
-    this.setState({
-      items
-    });
+    this.setState(prevState => ({
+      items,
+      searchQuery: prevState.searchInput
+    }));
   };
   render() {
     const items = this.state.items.map(item => {
@@ -118,7 +122,7 @@ class Browse extends Component {
           handleSelectNavItem={this.handleSelectNavItem}
           handleSearchInputOnChange={this.handleSearchInputOnChange}
           handleSearch={this.handleSearch}
-          inputValue={this.state.searchQuery}
+          inputValue={this.state.searchInput}
         />
         {this.state.searchResultReturned && (
           <div className="item-search-results">

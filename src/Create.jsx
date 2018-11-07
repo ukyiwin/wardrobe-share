@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
-import Browse from './BrowseItems';
+import BrowseItems from './BrowseItems';
 import WardrobePreview from './WardrobePreview';
 import styled from 'styled-components';
-import productData from './productDataAllObject';
+import productDataObject from './productDataAllObject';
+import productData from './productDataAll';
 
 const CreateContainer = styled.div`
-  flex: 1
-  display: flex
-  min-height: 100%
+  display: flex;
+  flex: 1 1 0;
+  overflow-y: auto;
 `;
+
+const findItem = (productId, list) => {
+  return list.find(({ id }) => id === productId);
+};
+
+const findItemIndex = (productId, list) => {
+  return list.findIndex(({ id }) => id === productId);
+};
 
 class Create extends Component {
   state = {
     selectedItems: [
-      productData['product-10291490'],
-      productData['product-11055483'],
-      productData['product-10266249']
+      {
+        ...productDataObject['product-10291490'],
+        quantity: 1
+      },
+      { ...productDataObject['product-11055483'], quantity: 1 },
+      { ...productDataObject['product-10266249'], quantity: 1 }
     ]
   };
   handleDeleteItem = index => {
@@ -26,19 +38,39 @@ class Create extends Component {
       ]
     }));
   };
+
   handleAddItem = productId => {
-    console.log(productId);
-    this.setState(prevState => ({
-      selectedItems: [...prevState.selectedItems, productData[productId]]
-    }));
+    //check if item is already in list
+    const itemIndex = findItemIndex(productId, this.state.selectedItems);
+    // const quantity = itemInSelected !== -1 ? itemInSelected.quanity + 1 : 1;
+    if (itemIndex !== -1) {
+      console.log('existing item');
+      this.setState(prevState => {
+        return {
+          selectedItems: [
+            ...prevState.selectedItems.slice(0, itemIndex),
+            {
+              ...prevState.selectedItems[itemIndex],
+              quantity: prevState.selectedItems[itemIndex].quantity + 1
+            },
+            ...prevState.selectedItems.slice(itemIndex + 1)
+          ]
+        };
+      });
+    } else {
+      const item = findItem(productId, productData);
+      console.log('new item');
+      this.setState(prevState => {
+        return {
+          selectedItems: [...prevState.selectedItems, { ...item, quantity: 1 }]
+        };
+      });
+    }
   };
   render() {
     return (
       <CreateContainer>
-        {/* <button type="button" onClick={() => console.log(this.state)}>
-          state
-        </button> */}
-        <Browse handleAddItem={this.handleAddItem} />
+        <BrowseItems handleAddItem={this.handleAddItem} />
         <WardrobePreview
           selectedItems={this.state.selectedItems}
           handleDeleteItem={this.handleDeleteItem}

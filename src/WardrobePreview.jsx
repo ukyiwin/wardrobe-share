@@ -4,7 +4,7 @@ import productData from './productData';
 import styled from 'styled-components';
 import { fonts, colors } from './styles/theme.js';
 const margin = '20px';
-
+const halfMargin = '10px';
 const ImageContainer = styled.div`
   width: 100px;
 `;
@@ -20,6 +20,11 @@ const Item = styled.div`
 const DescriptionLabel = styled.p`
   font-family: ${fonts.secondaryFont};
   margin: 1rem 0 0.5rem;
+`;
+
+const ItemCardDetail = styled.div`
+  color: ${colors.lightGrey};
+  margin: ${halfMargin} 0;
 `;
 
 const WardrobeDescription = styled.textarea`
@@ -51,8 +56,9 @@ class WardrobePreview extends Component {
           </ImageContainer>
           <div className="item__body">
             <div className="item__body__description">{item.description}</div>
-            <div className="item__body__price">{item.price}</div>
-            <div className="item__body__view">view</div>
+            <ItemCardDetail>{item.price}</ItemCardDetail>
+            <ItemCardDetail>quantity: {item.quantity}</ItemCardDetail>
+            <ItemCardDetail>view</ItemCardDetail>
           </div>
           <div className="item__delete">
             <i
