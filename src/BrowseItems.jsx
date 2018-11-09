@@ -3,6 +3,8 @@ import productData from './productData';
 import productDataAll from './productDataAll';
 
 import styled from 'styled-components';
+import { clickable } from './globalStyles.js';
+
 import { fonts, colors } from './styles/theme';
 import SecondaryNav from './SecondaryNavBar';
 const margin = '20px';
@@ -25,21 +27,23 @@ const ProductCard = styled.div`
 const ProductImageContainer = styled.div`
   position: relative;
 `;
+
 const ProductImage = styled.img`
-  font-size: 1.5em;
   text-align: center;
   width: 100%;
-  cursor: pointer;
 `;
 
-const AddIcons = styled.i`
-  color: white;
+const AddIcon = styled.div`
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  opacity: 0.8;
-  font-size: 2rem;
-  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+  opacity: 0.6;
+  font-size: 1.5rem;
+  ${clickable}
 `;
 
 const ProductDesription = styled.p`
@@ -106,10 +110,12 @@ class Browse extends Component {
         <ProductCard key={item.id}>
           <ProductImageContainer>
             <ProductImage src={`./images/products/${item.images[0]}`} />
-            <AddIcons
-              className="fas fa-plus-square"
-              onClick={() => this.props.handleAddItem(item.id)}
-            />
+            <AddIcon>
+              <i
+                className="fas fa-plus"
+                onClick={() => this.props.handleAddItem(item.id)}
+              />
+            </AddIcon>
           </ProductImageContainer>
           <ProductDesription>{item.description}</ProductDesription>
           <ProductPrice>{item.price}</ProductPrice>

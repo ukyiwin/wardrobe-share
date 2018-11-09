@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import productData from './productData';
 import styled from 'styled-components';
 import { fonts, colors } from './styles/theme.js';
-
+import { flexRow } from './globalStyles';
 const margin = '20px';
 
 const SecondaryNavContainer = styled.div`
-  display: flex;
-  margin-bottom: 1rem;
-  align-items: center;
+  ${flexRow}
 `;
+
 const NavItem = styled.li`
   display: inline-block;
   list-style-type: none;
