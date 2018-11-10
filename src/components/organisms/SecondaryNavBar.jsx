@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
-import productData from './productData';
 import styled from 'styled-components';
-import { fonts, colors } from './styles/theme.js';
-import { flexRow } from './globalStyles';
-const margin = '20px';
+import { fonts, colors, margin } from '../../styles/theme.js';
 
-const SecondaryNavContainer = styled.div`
-  ${flexRow}
+const SecondaryNavContainer = styled.ul`
+  margin: 0;
+  padding: ${margin.half} ${margin.full};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const NavItem = styled.li`
   display: inline-block;
   list-style-type: none;
-  margin-right: 4rem;
-  font-family: ${fonts.primaryFont};
+  font-family: ${fonts.primary};
   color: black;
   cursor: pointer;
 `;
 
 const Searchbox = styled.div`
   display: flex;
+  align-items: center;
+  font-family: ${fonts.secondary};
+  font-size: 1.2rem;
   color: ${colors.lightGrey};
-  font-size: 1.3rem;
-  font-family: ${fonts.secondaryFont};
-  margin-left: auto;
 `;
 
 const SearchInput = styled.input`
   border: none;
-  margin: 0 ${margin};
+  margin-left: ${margin.half};
   font-size: 1.1rem;
   color: ${colors.lightGrey};
+  padding: 5px 10px;
+  border-bottom: 1px solid ${colors.lightGrey};
   outline: none;
+
   ::placeholder {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 `;
 
@@ -44,7 +47,11 @@ const categories = [
   { title: 'Shoes', value: 'shoes' }
 ];
 class SecondaryNav extends Component {
-  items = productData.tops.slice(0, 20);
+  handleKeyPress = ({ key }) => {
+    if (key === 'Enter') {
+      this.props.handleSearch();
+    }
+  };
 
   render() {
     const navItems = categories.map(({ title, value }, index) => (
@@ -55,21 +62,17 @@ class SecondaryNav extends Component {
         {title}
       </NavItem>
     ));
-
     return (
       <SecondaryNavContainer>
-        <ul>{navItems}</ul>
+        {navItems}
         <Searchbox>
-          <form>
-            <span>
-              <i className="fas fa-search" onClick={this.props.handleSearch} />
-            </span>
-            <SearchInput
-              placeholder="Search"
-              onChange={this.props.handleSearchInputOnChange}
-              value={this.props.inputValue}
-            />
-          </form>
+          <i className="fas fa-search" onClick={this.props.handleSearch} />
+          <SearchInput
+            placeholder="Search"
+            onChange={this.props.handleSearchInputOnChange}
+            onKeyPress={this.handleKeyPress}
+            value={this.props.inputValue}
+          />
         </Searchbox>
       </SecondaryNavContainer>
     );

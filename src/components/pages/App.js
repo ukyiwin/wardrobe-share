@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import Create from './Create';
-// import Browse from './BrowseWardrobe';
+import Header from '../organisms/Header';
+import Create from '../organisms/Create';
 
 import styled from 'styled-components';
 

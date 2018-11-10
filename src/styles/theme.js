@@ -6,6 +6,11 @@ export const colors = {
 
 //font stack
 export const fonts = {
-  primaryFont: '"Roboto", sans-serif',
-  secondaryFont: '"Montserrat", sans-serif'
+  primary: '"Roboto", sans-serif',
+  secondary: '"Montserrat", sans-serif'
+};
+
+export const margin = {
+  full: '20px',
+  half: '10px'
 };
