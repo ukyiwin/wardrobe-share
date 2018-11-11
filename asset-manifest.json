@@ -1,13 +1,13 @@
 {
-  "main.css": "/wardrobe-share/static/css/main.34fb8319.chunk.css",
-  "main.js": "/wardrobe-share/static/js/main.7b2c58fe.chunk.js",
-  "main.js.map": "/wardrobe-share/static/js/main.7b2c58fe.chunk.js.map",
-  "static/js/1.f5faf2dd.chunk.js": "/wardrobe-share/static/js/1.f5faf2dd.chunk.js",
-  "static/js/1.f5faf2dd.chunk.js.map": "/wardrobe-share/static/js/1.f5faf2dd.chunk.js.map",
-  "runtime~main.js": "/wardrobe-share/static/js/runtime~main.62b453e1.js",
-  "runtime~main.js.map": "/wardrobe-share/static/js/runtime~main.62b453e1.js.map",
-  "static/css/main.34fb8319.chunk.css.map": "/wardrobe-share/static/css/main.34fb8319.chunk.css.map",
-  "index.html": "/wardrobe-share/index.html",
-  "precache-manifest.e6ba50b840b2100873cd508e7798287f.js": "/wardrobe-share/precache-manifest.e6ba50b840b2100873cd508e7798287f.js",
-  "service-worker.js": "/wardrobe-share/service-worker.js"
+  "main.css": "/static/css/main.7b7c19ab.chunk.css",
+  "main.js": "/static/js/main.27be5bf3.chunk.js",
+  "main.js.map": "/static/js/main.27be5bf3.chunk.js.map",
+  "static/js/1.547bce20.chunk.js": "/static/js/1.547bce20.chunk.js",
+  "static/js/1.547bce20.chunk.js.map": "/static/js/1.547bce20.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
+  "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
+  "static/css/main.7b7c19ab.chunk.css.map": "/static/css/main.7b7c19ab.chunk.css.map",
+  "index.html": "/index.html",
+  "precache-manifest.0aba0dd077d3c43da711b81c74c06236.js": "/precache-manifest.0aba0dd077d3c43da711b81c74c06236.js",
+  "service-worker.js": "/service-worker.js"
 }
