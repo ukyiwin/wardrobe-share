@@ -9,6 +9,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   box-sizing: border-box;
+  min-width: 1200px;
 }
 *,
 *:before,

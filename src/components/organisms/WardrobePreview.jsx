@@ -13,13 +13,28 @@ const Container = styled.div`
   width: 35%;
   height: 100%;
 
+  .items {
+    flex: 1 1 0;
+    overflow-y: auto;
+    padding: 0 ${margin.full};
+  }
+`;
+
+const Header = styled.div`
+  padding:  0 ${margin.full};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 5px 3px -5px rgba(0, 0, 0, 0.3);
+  height: 52px;
+  z-index: 100;
+
   h3 {
-    margin: ${margin.half} ${margin.full} 0.5rem;
-    padding: 5px 0;
+    margin: 0
     font-family: ${fonts.secondary};
     font-weight: normal;
-    span {
-      float: right;
+  }
+  span {
       font-family: ${fonts.primary};
       font-size: 1rem;
       line-height: 1.6rem;
@@ -27,13 +42,6 @@ const Container = styled.div`
         margin-right: 0.5rem;
       }
     }
-  }
-
-  .items {
-    flex: 1 1 0;
-    overflow-y: auto;
-    padding: 0 ${margin.full};
-  }
 `;
 
 const ButtonArea = styled.div`
@@ -118,8 +126,8 @@ class WardrobePreview extends Component {
 
     return (
       <Container>
-        <h3 className="wardrobe-preview__title">
-          Your New Wardrobe
+        <Header>
+          <h3>Your New Wardrobe</h3>
           <span>
             <Count
               pose={this.state.animate ? 'attention' : 'normal'}
@@ -129,7 +137,7 @@ class WardrobePreview extends Component {
             </Count>
             Items
           </span>
-        </h3>
+        </Header>
         <div className="items">
           <DescriptionLabel>Description</DescriptionLabel>
           <Textarea

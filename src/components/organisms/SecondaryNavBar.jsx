@@ -8,6 +8,8 @@ const SecondaryNavContainer = styled.ul`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0px 5px 3px -5px rgba(0, 0, 0, 0.3);
+  z-index: 100;
 `;
 
 const NavItem = styled.li`
@@ -53,6 +55,10 @@ class SecondaryNav extends Component {
     }
   };
 
+  handleFocus = ({ target }) => {
+    target.select();
+  };
+
   render() {
     const navItems = categories.map(({ title, value }, index) => (
       <NavItem
@@ -72,6 +78,7 @@ class SecondaryNav extends Component {
             onChange={this.props.handleSearchInputOnChange}
             onKeyPress={this.handleKeyPress}
             value={this.props.inputValue}
+            onFocus={this.handleFocus}
           />
         </Searchbox>
       </SecondaryNavContainer>

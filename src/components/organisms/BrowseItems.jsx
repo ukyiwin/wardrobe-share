@@ -18,7 +18,7 @@ const Products = styled.div`
   flex: 1 1 0;
   display: flex;
   flex-wrap: wrap;
-  padding: 0 ${margin.half} ${margin.full} ${margin.full};
+  padding: ${margin.half} ${margin.half} ${margin.full} ${margin.full};
   overflow-y: auto;
   .resultSummary {
     width: 100%;

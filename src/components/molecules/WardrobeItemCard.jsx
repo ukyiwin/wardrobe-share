@@ -7,6 +7,7 @@ const Item = styled.div`
   display: flex;
   margin: ${margin.full} 0;
   ${fade}
+  
   p {
     color: ${colors.lightGrey};
     margin: ${margin.half} 0;
@@ -19,6 +20,10 @@ const Item = styled.div`
 
   .description {
     font-family: ${fonts.primary};
+  }
+
+  .productDetailLink {
+    cursor: pointer;
   }
 `;
 
@@ -69,7 +74,7 @@ function WadrobeItemCard(props) {
             />
           </span>
         </Quantity>
-        <p>view</p>
+        <p className="productDetailLink">view</p>
       </div>
       <Icon className="fas fa-times" onClick={() => handleDeleteItem(index)} />
     </Item>

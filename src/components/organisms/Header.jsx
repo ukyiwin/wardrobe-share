@@ -15,6 +15,7 @@ const Top = styled.header`
     flex: 1 1 0;
   }
 `;
+
 const Navigation = styled.div`
   border-top: 0.5px solid ${colors.lightGrey};
   border-bottom: 0.5px solid ${colors.lightGrey};
@@ -37,8 +38,10 @@ const Navigation = styled.div`
     }
   }
 `;
+
 const User = styled.div`
-  margin: auto ${margin.full} ${margin.half} 0;
+  /* align username baseline with h1 */
+  margin: auto ${margin.full} 15px 0;
   display: flex;
   align-items: center;
 
