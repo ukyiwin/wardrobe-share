@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { fonts, colors, margin } from '../../styles/theme.js';
+import { clickable } from '../../styles/globalStyles';
 
 const SecondaryNavContainer = styled.ul`
   margin: 0;
@@ -48,6 +49,10 @@ const categories = [
   { title: 'Bottoms', value: 'bottoms' },
   { title: 'Shoes', value: 'shoes' }
 ];
+
+const Icon = styled.i`
+  ${clickable}
+`;
 class SecondaryNav extends Component {
   handleKeyPress = ({ key }) => {
     if (key === 'Enter') {
@@ -72,7 +77,7 @@ class SecondaryNav extends Component {
       <SecondaryNavContainer>
         {navItems}
         <Searchbox>
-          <i className="fas fa-search" onClick={this.props.handleSearch} />
+          <Icon className="fas fa-search" onClick={this.props.handleSearch} />
           <SearchInput
             placeholder="Search"
             onChange={this.props.handleSearchInputOnChange}

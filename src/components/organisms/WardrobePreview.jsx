@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import styled from 'styled-components';
 import Textarea from 'react-textarea-autosize';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -6,6 +6,105 @@ import Count from '../atoms/Count';
 import WadrobeItemCard from '../molecules/WardrobeItemCard';
 import { button } from '../../styles/globalStyles.js';
 import { fonts, colors, margin } from '../../styles/theme.js';
+import { calculateTotal } from '../../utils';
+
+class WardrobePreview extends Component {
+  state = {
+    description:
+      "I've put together the must have pieces to start your capsule wardrobe with classic London street style...",
+    animate: false
+  };
+
+  itemsContainerRef = createRef();
+  itemRefs = {};
+
+  componentDidUpdate(prevProps) {
+    //scroll to bottom of selected items if a new item has been added
+    if (prevProps.selectedItems.length < this.props.selectedItems.length) {
+      this.itemsContainerRef.current.scroll({
+        top: this.itemsContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    } else if (this.props.scrollToItem) {
+      this.itemRefs[this.props.focusedItem].scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  handleDescriptionOnChange = ({ target: { value } }) => {
+    this.setState({
+      description: value
+    });
+  };
+
+  textAreaStyle = {
+    width: '100%',
+    height: '8rem',
+    fontFamily: fonts.primary,
+    fontSize: '1rem',
+    padding: '1rem',
+    color: colors.lightGrey,
+    border: `1px solid ${colors.lightGrey}`
+  };
+
+  render() {
+    const {
+      selectedItems,
+      changeItemQuantity,
+      handleDeleteItem,
+      quantity
+    } = this.props;
+
+    const ItemCards = selectedItems.map((item, index) => (
+      <CSSTransition key={item.id} timeout={200} classNames="fade">
+        <WadrobeItemCard
+          ref={el => {
+            this.itemRefs[item.id] = el;
+          }}
+          key={index}
+          item={item}
+          index={index}
+          changeItemQuantity={changeItemQuantity}
+          handleDeleteItem={handleDeleteItem}
+        />
+      </CSSTransition>
+    ));
+
+    const total = calculateTotal(this.props.selectedItems);
+    return (
+      <Container>
+        <Header>
+          <h3>Your New Wardrobe</h3>
+          <span>
+            <Count quantity={quantity}>{quantity}</Count>
+            Items
+          </span>
+        </Header>
+        <div className="items" ref={this.itemsContainerRef}>
+          <DescriptionLabel>Description</DescriptionLabel>
+          <Textarea
+            value={this.state.description}
+            onChange={this.handleDescriptionOnChange}
+            style={this.textAreaStyle}
+            maxLength="400"
+          />
+          <TransitionGroup>{ItemCards}</TransitionGroup>
+        </div>
+        <ButtonArea>
+          <div>£{total.toFixed(2)}</div>
+
+          <div>
+            <Button color={colors.lightGrey}>Save</Button>
+            <Button>Share</Button>
+          </div>
+        </ButtonArea>
+      </Container>
+    );
+  }
+}
+
+export default WardrobePreview;
 
 const Container = styled.div`
   display: flex;
@@ -66,99 +165,3 @@ const Button = styled.div`
   border-color: ${props => (props.color ? props.color : '')};
   
 `;
-
-class WardrobePreview extends Component {
-  state = {
-    description:
-      "I've put together the must have pieces to start your capsule wardrobe with classic London street style...",
-    animate: false
-  };
-
-  componentDidUpdate(prevProps) {
-    if (this.props.quantity > prevProps.quantity) {
-      this.animateCount();
-    }
-  }
-
-  handleDescriptionOnChange = ({ target: { value } }) => {
-    this.setState({
-      description: value
-    });
-  };
-
-  animateCount = () => {
-    this.setState({ animate: true });
-    setTimeout(() => {
-      this.setState({ animate: false });
-    }, 200);
-  };
-
-  textAreaStyle = {
-    width: '100%',
-    height: '8rem',
-    fontFamily: fonts.primary,
-    fontSize: '1rem',
-    padding: '1rem',
-    color: colors.lightGrey,
-    border: `1px solid ${colors.lightGrey}`
-  };
-
-  render() {
-    const {
-      selectedItems,
-      changeItemQuantity,
-      handleDeleteItem,
-      quantity,
-      total
-    } = this.props;
-
-    const ItemCards = selectedItems.map((item, index) => (
-      <CSSTransition key={item.id} timeout={200} classNames="fade">
-        <WadrobeItemCard
-          key={index}
-          item={item}
-          index={index}
-          changeItemQuantity={changeItemQuantity}
-          handleDeleteItem={handleDeleteItem}
-        />
-      </CSSTransition>
-    ));
-
-    return (
-      <Container>
-        <Header>
-          <h3>Your New Wardrobe</h3>
-          <span>
-            <Count
-              pose={this.state.animate ? 'attention' : 'normal'}
-              poseKey={quantity}
-            >
-              {quantity}
-            </Count>
-            Items
-          </span>
-        </Header>
-        <div className="items">
-          <DescriptionLabel>Description</DescriptionLabel>
-          <Textarea
-            value={this.state.description}
-            onChange={this.handleDescriptionOnChange}
-            style={this.textAreaStyle}
-            maxLength="400"
-          />
-          <TransitionGroup>{ItemCards}</TransitionGroup>
-        </div>
-        <ButtonArea>
-          <div>£{total.toFixed(2)}</div>
-
-          <div>
-            <Button color={colors.lightGrey}>Save</Button>
-            <Button>Share</Button>
-          </div>
-        </ButtonArea>
-      </Container>
-    );
-  }
-}
-
-export default WardrobePreview;

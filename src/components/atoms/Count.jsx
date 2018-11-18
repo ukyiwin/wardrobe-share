@@ -1,15 +1,13 @@
 import posed from 'react-pose';
 import styled from 'styled-components';
+import React, { Component } from 'react';
 
 const PosedCount = posed.div({
   attention: {
     scale: 1.3,
-    fontSize: '1.1rem',
-    transition: {
-      duration: 200
-    }
+    fontSize: '1.1rem'
   },
-  normal: {
+  default: {
     fontSize: '1rem',
     scale: 1
   }
@@ -26,4 +24,28 @@ const StyledCount = styled(PosedCount)`
   color: white;
 `;
 
-export default StyledCount;
+class AnimtedCounter extends Component {
+  state = {
+    animate: false
+  };
+  componentDidUpdate(prevProps) {
+    if (this.props.quantity > prevProps.quantity) {
+      this.animateCount();
+    }
+  }
+  animateCount = () => {
+    this.setState({ animate: true });
+    setTimeout(() => {
+      this.setState({ animate: false });
+    }, 200);
+  };
+  render() {
+    return (
+      <StyledCount pose={this.state.animate ? 'attention' : 'default'}>
+        {this.props.quantity}
+      </StyledCount>
+    );
+  }
+}
+
+export default AnimtedCounter;

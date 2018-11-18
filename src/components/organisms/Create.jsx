@@ -3,19 +3,7 @@ import styled from 'styled-components';
 import productData from '../../data/productDataAll';
 import BrowseItems from './BrowseItems';
 import WardrobePreview from './WardrobePreview';
-
-const CreateContainer = styled.div`
-  display: flex;
-  flex: 1 1 0;
-`;
-
-const findItem = (productId, list) => {
-  return list.find(({ id }) => id === productId);
-};
-
-const findItemIndex = (productId, list) => {
-  return list.findIndex(({ id }) => id === productId);
-};
+import { findItem, findItemIndex } from '../../utils';
 
 class Create extends Component {
   state = {
@@ -53,8 +41,9 @@ class Create extends Component {
       }
     ],
     quantity: 3,
-    total: 160.99
+    focusedItem: null
   };
+
   handleDeleteItem = index => {
     //todo confirm deletion
     this.setState(prevState => ({
@@ -63,11 +52,12 @@ class Create extends Component {
         ...prevState.selectedItems.slice(index + 1)
       ],
       quantity: prevState.quantity - 1,
-      total: prevState.total - prevState.selectedItems[index].price
+      focusedItem: null,
+      scrollToItem: false
     }));
   };
 
-  changeItemQuantity = (amount, index) => {
+  changeItemQuantity = (amount, index, scrollToItem = false) => {
     //item cannot be deleted with this method
     if (amount < 0 && this.state.selectedItems[index].quantity === 1) return;
 
@@ -81,7 +71,8 @@ class Create extends Component {
         ...prevState.selectedItems.slice(index + 1)
       ],
       quantity: prevState.quantity + amount,
-      total: prevState.total + prevState.selectedItems[index].price * amount
+      focusedItem: prevState.selectedItems[index].id,
+      scrollToItem
     }));
   };
 
@@ -90,19 +81,19 @@ class Create extends Component {
     const index = findItemIndex(productId, this.state.selectedItems);
     // increase quantity of existing item
     if (index !== -1) {
-      this.changeItemQuantity(1, index);
+      this.changeItemQuantity(1, index, true);
     } else {
       //add new item to selectedItems
       const item = findItem(productId, productData);
       this.setState(prevState => {
         return {
           selectedItems: [...prevState.selectedItems, { ...item, quantity: 1 }],
-          quantity: prevState.quantity + 1,
-          total: prevState.total + item.price
+          quantity: prevState.quantity + 1
         };
       });
     }
   };
+
   render() {
     return (
       <CreateContainer>
@@ -112,10 +103,16 @@ class Create extends Component {
           handleDeleteItem={this.handleDeleteItem}
           quantity={this.state.quantity}
           changeItemQuantity={this.changeItemQuantity}
-          total={this.state.total}
+          focusedItem={this.state.focusedItem}
+          scrollToItem={this.state.scrollToItem}
         />
       </CreateContainer>
     );
   }
 }
 export default Create;
+
+const CreateContainer = styled.div`
+  display: flex;
+  flex: 1 1 0;
+`;
