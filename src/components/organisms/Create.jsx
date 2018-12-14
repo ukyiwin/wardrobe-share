@@ -51,7 +51,7 @@ class Create extends Component {
         ...prevState.selectedItems.slice(0, index),
         ...prevState.selectedItems.slice(index + 1)
       ],
-      quantity: prevState.quantity - 1,
+      quantity: prevState.quantity - prevState.selectedItems[index].quantity,
       focusedItem: null,
       scrollToItem: false
     }));
